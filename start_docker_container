@@ -1,0 +1,12 @@
+#! /bin/bash
+
+docker kill synthesize-image
+docker rm synthesize
+
+docker run -d \
+	-v /var/docker/synthesize/elastic:/var/lib/elasticsearch \
+	-v /var/docker/synthesize/graphite:/opt/graphite/storage/whisper \
+	-p 443:4443 \
+  -p 8125:6125/udp \
+  -p 5003:5003/tcp \
+  --name synthesize synthesize-image
